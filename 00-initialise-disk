@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# Zap then partition a disk.
+#
+# Copyright (C) 2014 Ben Orchard <thefirstmuffinman@gmail.com>
+#
+
+usage() {
+    cat <<EOF
+Usage: ${0##*/} disk
+
+  Example:
+    ${0##*/} /dev/sda       initialise /dev/sda
+EOF
+}
+
+if [[ -z $1 ]]; then
+    usage
+    exit 1
+fi
+
+echo "Zapping GPT and MBR data structures..."
+sgdisk -Z $1
+echo "Creating new GPT entries..."
+sgdisk -o $1
+
+echo "Creating 1M BIOS-GPT Boot partition..."
+sgdisk -n 1:2048:+1M -c 1:"BIOS-GPT Boot partition" -t 1:ef02 $1
+echo "Creating 100M /boot partition..."
+sgdisk -n 2:0:+100M -c 2:"Linux /boot" -t 2:8300 $1
+echo "Creating Linux LVM partition to cover rest of disk..."
+sgdisk -n 3:0:0 -c 3:"Linux LVM" -t 3:8e00 $1
+echo "Rebooting to reload partition table..."
+reboot
