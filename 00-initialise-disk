@@ -2,8 +2,8 @@
 #
 # Zap then partition a disk.
 #
-# Copyright (C) 2014 Ben Orchard <thefirstmuffinman@gmail.com>
-#
+
+set -e
 
 usage() {
     cat <<EOF

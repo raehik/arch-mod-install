@@ -1,6 +1,0 @@
-#!/bin/bash
-
-first_script=00-initialise-disk
-
-scp -r setup/ root@${1}:~/
-ssh -t root@$1 "/bin/bash setup/$first_script ; /bin/zsh -i"

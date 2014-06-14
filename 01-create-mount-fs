@@ -1,0 +1,59 @@
+#!/bin/bash
+#
+# basic Arch install script
+# by raehik
+# 28/05/14
+#
+
+set -e
+
+var_boot_part=/dev/sda2
+var_lvm_part=/dev/sda3
+var_vg_name=main
+var_next_script=02-setup-base
+
+pause_cont() {
+    echo -n "(press Enter to continue)"
+    #read dummy_var # dummy var necessary to work with sh
+    read
+}
+
+echo "\
+Current variables (Ctrl-C and change in script to alter):
+Boot partition: $var_boot_part
+LVM partition: $var_lvm_part
+Volume Group name: $var_vg_name"
+
+pause_cont
+
+echo "Removing pre-existing LG '$var_vg_name' if present..."
+vgremove $var_vg_name
+echo "Removing pre-existing PV on '$var_lvm_part' if present..."
+pvremove $var_lvm_part
+
+echo "Creating PV on '$var_lvm_part'..."
+pvcreate $var_lvm_part
+echo "Creating VG '$var_vg_name' using $var_lvm_part..."
+vgcreate $var_vg_name $var_lvm_part
+echo "Creating LVs..."
+lvcreate -L 100G $var_vg_name --name root
+lvcreate -L 50G $var_vg_name --name var
+lvcreate -L 3G $var_vg_name --name home
+
+echo "Creating filesystems..."
+mkfs.ext4 $var_boot_part
+mkfs.ext4 /dev/mapper/${var_vg_name}-root
+mkfs.ext4 /dev/mapper/${var_vg_name}-var
+mkfs.ext4 /dev/mapper/${var_vg_name}-home
+
+echo "Mounting root partition..."
+mount /dev/mapper/${var_vg_name}-root /mnt
+echo "Creating partition directories at /mnt..."
+mkdir /mnt/boot /mnt/var /mnt/home
+echo "Mounting rest of partitions..."
+mount ${var_boot_part} /mnt/boot
+mount /dev/mapper/${var_vg_name}-var /mnt/var
+mount /dev/mapper/${var_vg_name}-home /mnt/home
+
+echo "Done. Running ${var_next_script}..."
+./$var_next_script

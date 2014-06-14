@@ -1,0 +1,54 @@
+#!/bin/bash
+#
+# basic Arch install script
+# by raehik
+# 28/05/14
+#
+
+set -e
+
+var_base_pkgs="base openssh vim zsh tmux grub"
+var_chroot_config="03-chroot-config"
+var_net_profile="def-static"
+
+pause_cont() {
+    echo -n "(press Enter to continue)"
+    #read dummy_var # necessary to work with sh
+    read
+}
+
+echo "\
+current variables (Ctrl-C and change in script to alter):
+base packages: $var_base_pkgs
+chroot-ed config script: $var_chroot_config
+netctl profile filename: $var_net_profile"
+
+pause_cont
+
+echo "\
+configure the package mirror list as required. suggest some UK and Germany
+servers at the top (just move 1 or 2 total)."
+pause_cont
+vi /etc/pacman.d/mirrorlist
+
+echo "running pacstrap with packages '$var_base_pkgs'..."
+pacstrap -i /mnt $var_base_pkgs
+
+echo "generating fstab..."
+genfstab -U -p /mnt >> /mnt/etc/fstab
+
+echo "moving next scripts into /mnt/root..."
+mv "$var_chroot_config" "$var_net_profile" /mnt/root
+
+echo "chrooting in with arch-chroot and running /etc/${var_chroot_config}..."
+arch-chroot /mnt /bin/bash /root/$var_chroot_config
+echo
+
+echo "Deleting ${var_chroot_config}..."
+rm /mnt/root/$var_chroot_config
+
+echo "Unmounting /mnt recursively..."
+umount -R /mnt
+
+echo "Ready to reboot! Go ahead and type 'reboot' and take out the disk once"
+echo "you're ready (no further configuration should be required, though)."
