@@ -13,8 +13,7 @@ found in `headless-notes.md`. Use `scp` like this:
 
 Then when you want to copy the rest over after a reboot:
 
-    $ scp 01-create-mount-fs 02-setup-base 03-chroot-config def-static\
-    root@${ip}
+    $ scp 01-create-mount-fs 02-setup-base 03-chroot-config def-static root@${ip}
 
 Couldn't be much easier. Or maybe it could, but I probably won't take pull
 requests all the same.
