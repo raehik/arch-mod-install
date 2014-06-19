@@ -7,7 +7,7 @@
 
 set -e
 
-var_base_pkgs="base openssh vim zsh tmux grub"
+var_base_pkgs="base openssh vim zsh tmux grub terminus-font"
 var_chroot_config="03-chroot-config"
 var_net_profile="def-static"
 
