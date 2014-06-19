@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+#
+# Install Arch Linux on a disk.
+#
+
+set -e
+
+grub_disk=${1}2
+new_hostname=default-hostname
+timezone="/usr/share/zoneinfo/Europe/London"
+enabled_profile=def-static
+
+pause_cont() {
+    echo -n "(press Enter to continue)"
+    #read dummy_var # necessary to work with sh
+    read
+}
+
+echo "Uncomment the line #en_GB.UTF-8 UTF-8!"
+pause_cont
+vim /etc/locale.gen
+
+echo "Running locale-gen..."
+locale-gen
+
+echo "Echoing LANG=en_GB.UTF-8 into new file /etc/locale.conf"
+echo LANG=en_GB.UTF-8 > /etc/locale.conf
+
+echo "Symlinking $var_timezone with /etc/localtime..."
+ln -s $var_timezone /etc/localtime
+
+echo "Setting hostname..."
+echo $var_new_hostname > /etc/hostname
+echo "On 127.0.0.1 line, add '$var_new_hostname' (your hostname) to the end!"
+pause_cont
+vim /etc/hosts
+
+echo "Choose your password!"
+passwd
+
+echo "In MODULES= line (empty), put 'radeon' for ATI/AMD cards, 'i915' for"
+echo "Intel integrated graphics or 'nouveau' for Nvidia cards!"
+echo "(this is for console font)"
+echo "i.e. MODULES="i915""
+echo "In HOOKS= line, add 'lvm2' between 'block' and 'filesystems'!"
+echo "i.e. HOOKS="base udev autodetect modconf block lvm2 filesystems keyboard fsck""
+pause_cont
+vim /etc/mkinitcpio.conf
+echo "Rebuilding kernel image..."
+mkinitcpio -p linux
+
+echo "Setting console font to Terminus..."
+echo "FONT=ter-u12n" >> /etc/vconsole.conf
+echo "KEYMAP=uk" >> /etc/vconsole.conf
+
+echo "Moving network profile $var_net_prof_file to /etc/netctl/${var_net_prof_name}..."
+mv /root/$var_net_profile /etc/netctl/
+
+echo "Enabling that network profile on boot..."
+netctl enable $var_net_profile
+
+echo "Enabling SSH at boot..."
+systemctl enable sshd
+
+echo "Installing grub..."
+grub-install --target=i386-pc --recheck $var_grub_disk
+echo "Making grub config (don't worry about errors!)..."
+grub-mkconfig -o /boot/grub/grub.cfg
+
+echo "Exiting chroot..."
+echo
+exit
