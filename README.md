@@ -17,3 +17,6 @@ Then when you want to copy the rest over after a reboot:
 
 Couldn't be much easier. Or maybe it could, but I probably won't take pull
 requests all the same.
+
+(Actually, a better way to use these scripts is to just `git clone` the repo.
+`pacman -Sy git` doesn't take very long, even on the live CD.)
