@@ -14,8 +14,9 @@ source "$vars_file"
 source lib/*
 
 for module in $V_modules; do
-    _echo "Using module $module"
+    _echo "MODULE START: $module"
     _log_only "## MODULE START: $module {{{"
     source modules/$module
     _log_only "## MODULE END: $module }}}"
+    _echo "MODULE END: $module"
 done
