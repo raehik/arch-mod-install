@@ -6,10 +6,12 @@
 #
 
 ## Modules {{{
-# Modules are stored in the `modules` directory and must be
-# shell-friendly/escaped (no spaces etc.)
-# You may separate modules by lines or spaces.
-# Empty lines are skipped, so you could e.g. separate out different sections.
+# * Modules are stored in the `modules` directory and must be
+#   shell-friendly/escaped (no spaces etc.)
+# * You may separate modules by lines or spaces.
+# * Empty lines are skipped, so you could e.g. separate out different sections.
+# * Modules must be ordered manually by priority. This should be labelled in
+#   each module file.
 V_modules="
 dotfiles
 "
