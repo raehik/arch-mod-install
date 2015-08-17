@@ -1,0 +1,36 @@
+# vim: set ft=sh :
+#
+# Variables for the setup scripts to use.
+#
+# Tailor these to match your system.
+#
+
+## Modules {{{
+# Modules are stored in the `modules` directory and must be
+# shell-friendly/escaped (no spaces etc.)
+# You may separate modules by lines or spaces.
+# Empty lines are skipped, so you could e.g. separate out different sections.
+V_modules="
+dotfiles
+"
+## }}}
+## Library {{{
+V_log_file="install-log.txt"
+## }}}
+## Basic {{{
+V_user="raehik"
+V_hostname="al-computer"
+## }}}
+## Disk {{{
+V_disk_dev="/dev/sda"
+V_boot_size="100M"
+V_root_size="50G"
+V_var_size="15G"
+V_home_size="50G"
+## }}}
+## Network {{{
+V_eth_or_wpa="eth"
+## }}}
+## Time {{{
+V_timezone="Europe/London"
+## }}}
