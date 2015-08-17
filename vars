@@ -34,3 +34,7 @@ V_eth_or_wpa="eth"
 ## Time {{{
 V_timezone="Europe/London"
 ## }}}
+## Dotfiles {{{
+V_github_user="$V_user"
+V_dotfile_list="dotfiles adminfiles grubfiles"
+## }}}

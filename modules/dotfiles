@@ -1,6 +1,10 @@
-#!/usr/bin/env bash
+# vim: set ft=sh
 #
-# Short description of the program/script's operation/function.
+# Module:   dotfiles
+# Priority: 99
+# Desc.:    Install all my dotfiles (raehik/{dotfiles,adminfiles,grubfiles}).
 #
 
-_log "git my dotfiles"
+for repo in $V_dotfile_list; do
+    _log "git clone https://github.com/$V_github_user/$repo"
+done
