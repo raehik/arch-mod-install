@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+#
+# Install Arch Linux on a disk.
+#
+
+set -e
+
+disk=$1
+boot_partition=${disk}2
+lvm_partition=${disk}3
+vg_name=main
+root_size=100G
+var_size=50G
+home_size=3G
+
+base_pkgs="base grub openssh zsh vim git tmux terminus-font"
+
+
+usage() {
+    cat <<EOF
+Usage: ${0##*/} disk
+Install Arch Linux on a disk.
+
+  Example:
+    ${0##*/} /dev/sda       initialise /dev/sda
+EOF
+}
+
+if [[ -z $1 ]]; then
+    usage
+    exit 1
+fi
+
+echo "Zapping GPT and MBR data structures..."
+sgdisk -Z $disk
+echo "Creating new GPT entries..."
+sgdisk -o $disk
+
+echo "Creating 1M BIOS-GPT Boot partition..."
+sgdisk -n 1:2048:+1M -c 1:"BIOS-GPT Boot partition" -t 1:ef02 $disk
+echo "Creating 100M /boot partition..."
+sgdisk -n 2:0:+100M -c 2:"Linux /boot" -t 2:8300 $disk
+echo "Creating Linux LVM partition to cover rest of disk..."
+sgdisk -n 3:0:0 -c 3:"Linux LVM" -t 3:8e00 $disk
+
+echo "Removing pre-existing LG '$vg_name' if present..."
+vgremove $vg_name || echo "wasn't present"
+echo "Removing pre-existing PV on '$lvm_partition' if present..."
+pvremove $lvm_partition || echo "wasn't present"
+
+echo "Creating PV on '$lvm_partition'..."
+pvcreate $lvm_partition
+echo "Creating VG '$vg_name' using '$lvm_partition'..."
+vgcreate $vg_name $lvm_partition
+echo "Creating LVs..."
+lvcreate -L $root_size $vg_name --name root
+lvcreate -L $var_size $vg_name --name var
+lvcreate -L $home_size $vg_name --name home
+
+echo "Creating filesystems..."
+mkfs.ext4 $boot_partition
+mkfs.ext4 /dev/mapper/${vg_name}-root
+mkfs.ext4 /dev/mapper/${vg_name}-var
+mkfs.ext4 /dev/mapper/${vg_name}-home
+
+echo "Mounting root partition..."
+mount /dev/mapper/${vg_name}-root /mnt
+echo "Creating partition directories at /mnt..."
+mkdir /mnt/boot /mnt/var /mnt/home
+echo "Mounting rest of partitions..."
+mount ${boot_partition} /mnt/boot
+mount /dev/mapper/${vg_name}-var /mnt/var
+mount /dev/mapper/${vg_name}-home /mnt/home
+
+chroot_config="03-chroot-config"
+
+echo "move a UK or Germany server or two up to the top"
+vi /etc/pacman.d/mirrorlist
+
+echo "running pacstrap with packages '$pacman_pkgs'..."
+pacstrap -i /mnt $pacman_pkgs
+
+echo "generating fstab..."
+genfstab -U -p /mnt >> /mnt/etc/fstab
+
+echo "copying chroot script into /mnt/root/arch-install..."
+mkdir /mnt/root/arch-install
+cp "$chroot_config" /mnt/root/arch-install
+
+echo "chrooting in and running /root/arch-install/${chroot_config}..."
+# default to installing grub on same disk
+arch-chroot /mnt /bin/bash /root/$chroot_config $disk
+
+echo "Unmounting /mnt recursively..."
+umount -R /mnt
+
+echo "Ready to reboot! Go ahead and type 'reboot' and take out the disk once"
+echo "you're ready (no further configuration should be required, though)."

@@ -1,6 +1,8 @@
-# SSHing to the Arch Live CD fully headless from turned off
+SSHing to the Arch Live CD fully headless from turned off
+=========================================================
 
-## Starting Arch
+Starting Arch
+-------------
 
 The computer will by default try to boot using the CD if it is present, so that
 makes things a lot easier.
@@ -13,7 +15,8 @@ press Enter once. This'll boot up x64_86 Arch, because it's the default
 selection.
 
 
-## Running SSH
+Running SSH
+-----------
 
 First, we need to start the ssh daemon, `sshd`:
 
@@ -27,7 +30,8 @@ password on Arch. So we'll set one:
 Remember to type it in twice. And KISS, because we're headless.
 
 
-## Logging in
+Logging in
+----------
 
 We need to know the IP. Arch is rather nice and grabs a DHCP IP by default if
 it can - so, we just need to check our router's DHCP client table. In my
@@ -42,8 +46,9 @@ default port 22 as the root user:
 You're in! Hopefully.
 
 
-## tl;dr
+tl;dr
+-----
 
-    1. press Enter
-    2. `$ systemctl start sshd ; passwd`
-    3. `ssh root@${dhcp-ip}`
+  1. press Enter
+  2. `$ systemctl start sshd ; passwd`
+  3. `$ ssh root@${dhcp-ip}`
