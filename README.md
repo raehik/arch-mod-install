@@ -1,22 +1,32 @@
-Setsura automated install for Arch Linux
-========================================
+Arch Linux automated modular install script
+===========================================
 
-That's what this is. A set of rather unneat and badly thought through (but
-verbose and helpful) scripts which leads you through a bare bones Arch install
-(along with Vim, tmux, and openssh), written with a certain computer in mind.
+This is a non-interactive installer for Arch Linux. You set options before
+execution, then you run the script and leave it to its business.
 
-To use, copy the `0[1-3]-*` files over to the computer you're installing on.
-Instructions on how to SSH to a computer running the Arch install CD can be
-found in `headless-notes.md`. Use `scp` like this:
+Inspired by Ethan Schoonover's [archblocks][].
 
-    $ scp 00-initialise-disk root@${ip}
+[archblocks]: https://github.com/altercation/archblocks
 
-Then when you want to copy the rest over after a reboot:
 
-    $ scp 01-create-mount-fs 02-setup-base 03-chroot-config def-static root@${ip}
+Requirements
+------------
 
-Couldn't be much easier. Or maybe it could, but I probably won't take pull
-requests all the same.
+The default options require some extra packages on the install medium:
 
-(Actually, a better way to use these scripts is to just `git clone` the repo.
-`pacman -Sy git` doesn't take very long, even on the live CD.)
+  * git
+  * tmux
+
+However, Git is only needed for certain modules, and tmux can be disabled in the
+`vars` file.
+
+
+Usage
+-----
+
+Make sure you have Git installed, and clone this repo:
+
+    git clone https://github.com/raehik/arch-mod-install
+
+Add modules and change options in the `vars` file, then **make sure you check
+over the installer & selected modules!** When you're happy, begin the install by executing `install`.
