@@ -1,6 +1,6 @@
 # vim: set ft=sh
 #
-# Module:   base/pacstrap
+# Module:   install/pacstrap
 # Desc.:    Install the base system.
 #
 
