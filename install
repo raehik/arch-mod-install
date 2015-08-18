@@ -18,7 +18,7 @@ fi
 source "$vars_file"
 
 # if we're using tmux, re-run script if not in tmux already
-if ! $IN_CHROOT && [[ "$V_use_tmux" ]] && [[ -z "$TMUX" ]]; then
+if ! [[ $IN_CHROOT ]] && [[ "$V_use_tmux" ]] && [[ -z "$TMUX" ]]; then
     # 10/10 for recursion
     tmux new-session "$0"
     exit 0
@@ -31,7 +31,7 @@ _log "helper functions sourced, install starting"
 
 # Start install
 ## Pre-chroot {{{
-if ! $IN_CHROOT; then
+if ! [[ $IN_CHROOT ]]; then
     _log "not in chroot, doing pre-chroot stuff"
 
     # disk
@@ -46,7 +46,7 @@ if ! $IN_CHROOT; then
 else
 ## }}}
 ## In-chroot {{{
-# if $IN_CHROOT; then
+# if [[ $IN_CHROOT ]]; then
     _log "It worked!"
     #_exec_module $V_M_system_config
 fi
