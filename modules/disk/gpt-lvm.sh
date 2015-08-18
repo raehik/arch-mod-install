@@ -18,6 +18,10 @@ sgdisk -n 3:0:0 -c 3:"Linux LVM" -t 3:8e00 "$V_disk_dev"
 boot_part="${V_disk_dev}2"
 lvm_part="${V_disk_dev}3"
 
+_log "Removing any old LVM traces"
+vgremove -f "$V_vg_name"
+pvremove -ff "$lvm_part"
+
 _log "Initialising LVM partition"
 pvcreate "$lvm_part"
 vgcreate "$V_vg_name" "$lvm_part"
