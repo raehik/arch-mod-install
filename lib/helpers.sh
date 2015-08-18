@@ -33,5 +33,7 @@ _pkg_install() {
 }
 
 _exec_module() {
-    source "modules/${1}.sh"
+    for module in $@; do
+        source "modules/${module}.sh"
+    done
 }

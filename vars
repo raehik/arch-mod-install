@@ -17,17 +17,12 @@ V_f_in_chroot="in-chroot.sh"
 # * Modules must be ordered manually by priority. This should be labelled in
 #   each module file.
 #
-# Disk
 V_M_disk="disk/gpt-lvm"
-
-# Base
 V_M_base="base/pacstrap"
-
-# General config
 V_M_system_config="general/config"
-
-# Network
 V_M_network="network/auto-eth"
+V_M_boot="boot/grub"
+V_M_configs="config/adminfiles config/grubfiles"
 
 V_modules="
 grubfiles
@@ -37,6 +32,7 @@ net-auto-eth
 ## }}}
 ## Library {{{
 V_log_file="install-log.txt"
+V_chroot_tmp_dir="/tmp/arch-mod-install"
 ## }}}
 ## Pre-chroot {{{
 V_use_tmux="yes"

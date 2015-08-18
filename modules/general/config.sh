@@ -4,6 +4,9 @@
 # Desc.:    General system configuration (hostname, locale etc.)
 #
 
+_log "Creating temporary directory"
+mkdir "$V_chroot_tmp_dir"
+
 _log "Setting hostname: $V_hostname"
 echo "$V_hostname" > /etc/hostname
 
