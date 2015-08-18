@@ -15,7 +15,7 @@ mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 rankmirrors -n 10 /etc/pacman.d/mirrorlist.bak > /etc/pacman.d/mirrorlist
 
 _log "Pacstrapping base packages"
-pacstrap -i /mnt base grub openssh rxvt-unicode-terminfo sudo
+pacstrap /mnt base grub openssh rxvt-unicode-terminfo sudo
 
 _log "Generating fstab"
 genfstab -U -p /mnt >> /mnt/etc/fstab
