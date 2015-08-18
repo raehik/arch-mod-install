@@ -23,8 +23,8 @@ vgremove -f "$V_vg_name"
 pvremove -ff "$lvm_part"
 
 _log "Initialising LVM partition"
-pvcreate "$lvm_part"
-vgcreate "$V_vg_name" "$lvm_part"
+pvcreate -f "$lvm_part"
+vgcreate -f "$V_vg_name" "$lvm_part"
 lvcreate -L $V_root_size "$V_vg_name" --name root
 lvcreate -L $V_var_size "$V_vg_name" --name var
 lvcreate -L $V_home_size "$V_vg_name" --name home
