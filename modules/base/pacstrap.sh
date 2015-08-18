@@ -4,8 +4,11 @@
 # Desc.:    Install the base system.
 #
 
+_log "Updating pacman package lists"
+pacman -Sy
+
 _log "Updating keyring"
-pacman -Sy archlinux-keyring
+_pkg_install archlinux-keyring
 
 _log "Ranking pacman mirrors (may take 5 minutes or more)"
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
