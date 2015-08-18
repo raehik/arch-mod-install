@@ -46,8 +46,12 @@ else
 ## In-chroot {{{
 # if [[ $IN_CHROOT ]]; then
     _log "Chrooted, running assorted modules"
-    _log "Making temporary directory"
+    _log "Making temporary directory & making safe from Git"
     mkdir "$V_chroot_tmp_dir"
+    # if destination dir is empty, Git uses it as the repo root#
+    # we don't want that, so we'll touch a file
+    touch "$V_chroot_tmp_dir/.keep"
+
 
     _exec_module $V_M_system_config
     _exec_module $V_M_network
