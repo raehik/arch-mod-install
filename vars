@@ -54,7 +54,7 @@ V_boot_size="100M"
 V_root_size="50G"
 V_var_size="15G"
 V_home_size="50G"
-V_vg_name="lvm"
+V_vg_name="main"
 ## }}}
 ## Network {{{
 V_eth_or_wpa="eth"
