@@ -34,10 +34,8 @@ _log "helper functions sourced, install starting"
 if ! [[ $IN_CHROOT ]]; then
     _log "not in chroot, doing pre-chroot stuff"
 
-    # disk
+    # run some modules
     _exec_module $V_M_disk
-
-    # base system
     _exec_module $V_M_base
 
     # now chroot in
@@ -47,7 +45,8 @@ else
 ## }}}
 ## In-chroot {{{
 # if [[ $IN_CHROOT ]]; then
-    _log "It worked!"
+    _log "chrooted, running assorted modules"
+
     _exec_module $V_M_system_config
     _exec_module $V_M_network
 fi
