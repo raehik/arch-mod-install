@@ -7,5 +7,5 @@
 _log "Installing GRUB"
 grub-install --recheck "$V_disk_dev"
 
-_log "Making GRUB config (non-terminating errors are fine, don't worry!)"
+_log "Making GRUB config (warnings are fine, don't worry!)"
 grub-mkconfig -o /boot/grub/grub.cfg
