@@ -5,18 +5,32 @@
 
 vars_file="vars"
 
+# if not root, just end straight away
+if [[ $(id -u) != 0 ]]; then
+    echo "ERROR: not root"
+    echo "Ending early so you don't eff anything up."
+    exit 1
+fi
+
 # Source variable declarations.
 #
 # Refer to the file for variable names. All variables are prefixed with 'V_'.
 source "$vars_file"
 
+# if we're using tmux, re-run script if not in tmux already
+if [[ "$V_use_tmux" ]] && [[ -z "$TMUX" ]]; then
+    # 10/10 for recursion
+    tmux new-session "$0"
+    exit 0
+fi
+
 # Source helper functions. All functions are prefixed with '_'.
 source lib/*
 
-for module in $V_modules; do
-    _echo "MODULE START: $module"
-    _log_only "## MODULE START: $module {{{"
-    source modules/$module
-    _log_only "## MODULE END: $module }}}"
-    _echo "MODULE END: $module"
-done
+# Start install
+# Pre-chroot stuff
+source "$V_f_pre_chroot"
+
+# chroot in & continue
+cp "$V_f_in_chroot" /mnt
+arch-chroot /mnt "/$V_f_in_chroot"
