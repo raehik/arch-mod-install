@@ -27,9 +27,13 @@ fi
 # Source helper functions. All functions are prefixed with '_'.
 source lib/*
 
+_log "helper functions sourced, install starting"
+
 # Start install
 ## Pre-chroot {{{
 if ! $IN_CHROOT; then
+    _log "not in chroot, doing pre-chroot stuff"
+
     # disk
     #_exec_module $V_M_disk
 
