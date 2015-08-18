@@ -25,9 +25,9 @@ pvremove -ff "$lvm_part"
 _log "Initialising LVM partition"
 pvcreate -f --yes "$lvm_part"
 vgcreate -f --yes "$V_vg_name" "$lvm_part"
-lvcreate -L $V_root_size "$V_vg_name" --name root
-lvcreate -L $V_var_size "$V_vg_name" --name var
-lvcreate -L $V_home_size "$V_vg_name" --name home
+lvcreate --yes -L $V_root_size "$V_vg_name" --name root
+lvcreate --yes -L $V_var_size "$V_vg_name" --name var
+lvcreate --yes -L $V_home_size "$V_vg_name" --name home
 
 _log "Creating filesystems"
 mkfs.ext4 "$boot_part"
