@@ -38,10 +38,9 @@ if ! [[ $IN_CHROOT ]]; then
     _exec_module $V_M_disk
     _exec_module $V_M_base
 
-    # now chroot in
-    mkdir -p "/mnt/$V_chroot_tmp_dir/${PWD##*/}"
-    cp -R "$PWD" "/mnt/$V_chroot_tmp_dir/${PWD##*/}"
-    IN_CHROOT=yes arch-chroot /mnt /bin/bash -c "cd /$V_chroot_tmp_dir/${PWD##*/} ; ./${0##*/}"
+    _log "finished pre-chroot stuff, chrooting in"
+    cp -R "$PWD" "/mnt"
+    IN_CHROOT=yes arch-chroot /mnt /bin/bash -c "cd ${PWD##*/} ; ./${0##*/}"
 else
 ## }}}
 ## In-chroot {{{
