@@ -27,3 +27,11 @@ _echo() {
     ### Use for simple messages. (For now, this function is identical to _log.)
     _log "$1"
 }
+
+_pkg_install() {
+    pacman -S --noconfirm "$@"
+}
+
+_exec_module() {
+    source "modules/${1}.sh"
+}

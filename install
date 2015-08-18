@@ -18,7 +18,7 @@ fi
 source "$vars_file"
 
 # if we're using tmux, re-run script if not in tmux already
-if [[ "$V_use_tmux" ]] && [[ -z "$TMUX" ]]; then
+if ! $IN_CHROOT && [[ "$V_use_tmux" ]] && [[ -z "$TMUX" ]]; then
     # 10/10 for recursion
     tmux new-session "$0"
     exit 0
@@ -28,9 +28,23 @@ fi
 source lib/*
 
 # Start install
-# Pre-chroot stuff
-source "$V_f_pre_chroot"
+## Pre-chroot {{{
+if ! $IN_CHROOT; then
+    # disk
+    #_exec_module $V_M_disk
 
-# chroot in & continue
-cp "$V_f_in_chroot" /mnt
-arch-chroot /mnt "/$V_f_in_chroot"
+    # base system
+    #_exec_module $V_M_base
+
+    # now chroot in
+    cp -R "$PWD" /mnt
+    arch-chroot /mnt "/$V_f_in_chroot"
+else
+## }}}
+## In-chroot {{{
+# if $IN_CHROOT; then
+    _log "It worked!"
+    #_exec_module $V_M_system_config
+fi
+## }}}
+

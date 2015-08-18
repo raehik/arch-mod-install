@@ -1,4 +1,7 @@
-# vim: set ft=sh :
+# vim: set ft=sh
+#
+# Module:   disk/gpt-lvm
+# Desc.:    Initialise a disk device with GPT LVM.
 #
 
 ## Disk initialising {{{
@@ -23,7 +26,7 @@ lvcreate -L $V_var_size "$V_vg_name" --name var
 lvcreate -L $V_home_size "$V_vg_name" --name home
 
 _log "Creating filesystems"
-mkfs.ext4 "$V_boot_part"
+mkfs.ext4 "$boot_part"
 mkfs.ext4 "/dev/mapper/$V_vg_name-root"
 mkfs.ext4 "/dev/mapper/$V_vg_name-var"
 mkfs.ext4 "/dev/mapper/$V_vg_name-home"
@@ -34,15 +37,4 @@ mkdir /mnt/boot /mnt/var /mnt/home
 mount "$boot_part" /mnt/boot
 mount "/dev/mapper/$V_vg_name-var" /mnt/var
 mount "/dev/mapper/$V_vg_name-home" /mnt/home
-## }}}
-## Base system install {{{
-_log "Ranking pacman mirrors (may take 5 minutes or more)"
-mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
-rankmirrors -n 6 /etc/pacman.d/mirrorlist.bak > /etc/pacman.d/mirrorlist
-
-_log "Pacstrapping base packages"
-pacstrap -i /mnt base
-
-_log "Generating fstab"
-genfstab -U -p /mnt >> /mnt/etc/fstab
 ## }}}

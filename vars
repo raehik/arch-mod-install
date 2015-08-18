@@ -16,8 +16,20 @@ V_f_in_chroot="in-chroot.sh"
 # * Empty lines are skipped, so you could e.g. separate out different sections.
 # * Modules must be ordered manually by priority. This should be labelled in
 #   each module file.
+#
+# Disk
+V_M_disk="disk/gpt-lvm"
+
+# Base
+V_M_base="base/pacstrap"
+
+# General config
+V_M_system_config="general/config"
+
 V_modules="
-dotfiles
+grubfiles
+adminfiles
+net-auto-eth
 "
 ## }}}
 ## Library {{{
@@ -29,6 +41,9 @@ V_use_tmux="yes"
 ## Basic {{{
 V_user="raehik"
 V_hostname="al-computer"
+V_locale="en_GB.UTF-8"
+V_keymap="uk"
+V_pkgs="base grub openssh rxvt-unicode-terminfo sudo"
 ## }}}
 ## Disk {{{
 V_disk_dev="/dev/sda"
