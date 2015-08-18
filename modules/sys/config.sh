@@ -41,4 +41,4 @@ _log "Running pacman-db-upgrade"
 pacman-db-upgrade
 
 _log "Setting root password to $V_root_password"
-chpasswd <<< "root:hackme"
+chpasswd <<< "root:$V_root_password"

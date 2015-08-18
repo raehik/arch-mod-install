@@ -8,4 +8,5 @@ _log "Installing sudo"
 _pkg_install sudo
 
 _log "Adding new user $V_user to sudoers"
-echo "\n$V_user ALL=(ALL) ALL" >> /etc/sudoers
+echo >> /etc/sudoers
+echo "$V_user ALL=(ALL) ALL" >> /etc/sudoers

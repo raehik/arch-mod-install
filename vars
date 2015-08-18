@@ -28,7 +28,7 @@ V_log_file="install-log.txt"
 V_chroot_tmp_dir="/tmp/arch-mod-install"
 ## }}}
 ## System configuration {{{
-V_root_passwd="hackme"
+V_root_password="hackme"
 V_hostname="al-computer"
 V_timezone="Europe/London"
 V_locale="en_GB.UTF-8"
@@ -37,7 +37,7 @@ V_pkgs="base vim"
 ## }}}
 ## User {{{
 V_user="raehik"
-V_user_passwd="hackme"
+V_user_password="hackme"
 ## }}}
 ## Disk {{{
 V_disk_dev="/dev/sda"

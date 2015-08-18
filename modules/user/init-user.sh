@@ -6,4 +6,4 @@
 
 _log "Initialising new user $V_user"
 useradd -m "$V_user"
-chpasswd <<< "$V_user:$V_user_passwd"
+chpasswd <<< "$V_user:$V_user_password"
