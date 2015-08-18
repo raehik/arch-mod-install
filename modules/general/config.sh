@@ -39,3 +39,6 @@ mkinitcpio -p linux
 # upgrade pacman db (depending on install media age, this might be necessary)
 _log "Running pacman-db-upgrade"
 pacman-db-upgrade
+
+_log "Setting root password to $V_root_password"
+chpasswd <<< "root:hackme"
