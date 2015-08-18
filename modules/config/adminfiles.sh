@@ -5,6 +5,6 @@
 #
 
 _pkg_install git
-git clone "https://github.com/$V_github_user/adminfiles" "$V_chroot_tmp_dir"
+git clone "https://github.com/$V_github_user/adminfiles" "$V_chroot_tmp_dir/adminfiles"
 "$V_chroot_tmp_dir/adminfiles/install"
 rm -rf "$V_chroot_tmp_dir/adminfiles"
