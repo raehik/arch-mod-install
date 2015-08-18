@@ -1,6 +1,6 @@
 # vim: set ft=sh
 #
-# Module:   user/initialise-user
+# Module:   user/init-user
 # Desc.:    Initialise a user.
 #
 

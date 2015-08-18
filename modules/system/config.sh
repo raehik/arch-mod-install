@@ -1,6 +1,6 @@
 # vim: set ft=sh
 #
-# Module:   general/config
+# Module:   system/config
 # Desc.:    General system configuration (hostname, locale etc.)
 #
 

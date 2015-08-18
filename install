@@ -32,13 +32,13 @@ _log "Helper functions sourced, beginning install"
 # Start install
 ## Pre-chroot {{{
 if ! [[ $IN_CHROOT ]]; then
-    _log "not in chroot, doing pre-chroot stuff"
+    _log "Not in chroot, doing pre-chroot stuff"
 
     # run some modules
     _exec_module $V_M_disk
     _exec_module $V_M_install
 
-    _log "finished pre-chroot stuff, chrooting in"
+    _log "Finished pre-chroot stuff, chrooting in"
     cp -R "$PWD" "/mnt"
     IN_CHROOT=yes arch-chroot /mnt /bin/bash -c "cd ${PWD##*/} ; ./${0##*/}"
 else
@@ -54,3 +54,5 @@ else
 fi
 ## }}}
 
+_log "Install complete, rebooting"
+reboot
