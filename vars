@@ -5,6 +5,10 @@
 # Tailor these to match your system.
 #
 
+## Files {{{
+V_f_pre_chroot="pre-chroot.sh"
+V_f_in_chroot="in-chroot.sh"
+## }}}
 ## Modules {{{
 # * Modules are stored in the `modules` directory and must be
 #   shell-friendly/escaped (no spaces etc.)
@@ -19,6 +23,9 @@ dotfiles
 ## Library {{{
 V_log_file="install-log.txt"
 ## }}}
+## Pre-chroot {{{
+V_use_tmux="yes"
+## }}}
 ## Basic {{{
 V_user="raehik"
 V_hostname="al-computer"
@@ -29,6 +36,7 @@ V_boot_size="100M"
 V_root_size="50G"
 V_var_size="15G"
 V_home_size="50G"
+V_vg_name="lvm"
 ## }}}
 ## Network {{{
 V_eth_or_wpa="eth"
