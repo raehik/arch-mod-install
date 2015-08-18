@@ -27,7 +27,7 @@ fi
 # Source helper functions. All functions are prefixed with '_'.
 source lib/*
 
-_log "helper functions sourced, install starting"
+_log "Helper functions sourced, beginning install"
 
 # Start install
 ## Pre-chroot {{{
@@ -45,7 +45,9 @@ else
 ## }}}
 ## In-chroot {{{
 # if [[ $IN_CHROOT ]]; then
-    _log "chrooted, running assorted modules"
+    _log "Chrooted, running assorted modules"
+    _log "Making temporary directory"
+    mkdir "$V_chroot_tmp_dir"
 
     _exec_module $V_M_system_config
     _exec_module $V_M_network
