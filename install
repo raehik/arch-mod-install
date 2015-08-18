@@ -51,6 +51,9 @@ else
 
     _exec_module $V_M_system
     _exec_module $V_M_configs
+
+    _log "Chroot operations finished, exiting chroot"
+    exit 0
 fi
 ## }}}
 
