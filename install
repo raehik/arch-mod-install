@@ -35,20 +35,21 @@ if ! [[ $IN_CHROOT ]]; then
     _log "not in chroot, doing pre-chroot stuff"
 
     # disk
-    #_exec_module $V_M_disk
+    _exec_module $V_M_disk
 
     # base system
-    #_exec_module $V_M_base
+    _exec_module $V_M_base
 
     # now chroot in
     cp -R "$PWD" /mnt
-    arch-chroot /mnt "/$V_f_in_chroot"
+    arch-chroot /mnt "/${PWD##*/}/$0"
 else
 ## }}}
 ## In-chroot {{{
 # if [[ $IN_CHROOT ]]; then
     _log "It worked!"
-    #_exec_module $V_M_system_config
+    _exec_module $V_M_system_config
+    _exec_module $V_M_network
 fi
 ## }}}
 

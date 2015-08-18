@@ -26,6 +26,9 @@ V_M_base="base/pacstrap"
 # General config
 V_M_system_config="general/config"
 
+# Network
+V_M_network="network/auto-eth"
+
 V_modules="
 grubfiles
 adminfiles

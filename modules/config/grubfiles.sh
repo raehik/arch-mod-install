@@ -2,9 +2,8 @@
 #
 # Module:   grubfiles
 # Desc.:    Install my grubfiles.
-# Priority: 99
-# Requires: [none]
 #
 
+_pkg_install git
 git clone "https://github.com/$V_github_user/grubfiles"
 grubfiles/install
