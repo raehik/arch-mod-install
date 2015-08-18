@@ -32,3 +32,6 @@ fi
 
 # create ramdisk
 mkinitcpio -p linux
+
+# upgrade pacman db (depending on install media age, this might be necessary)
+pacman-db-upgrade
