@@ -7,5 +7,9 @@
 # this for you (check config/grubfiles.sh).
 #
 
+_log "Installing & enabling ifplugd"
 _pkg_install ifplugd
 systemctl enable netctl-ifplugd@eth0
+
+_log "Enabling sshd"
+systemctl enable sshd
