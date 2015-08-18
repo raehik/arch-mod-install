@@ -40,7 +40,7 @@ if ! [[ $IN_CHROOT ]]; then
 
     # now chroot in
     cp -R "$PWD" /mnt
-    arch-chroot /mnt "/${PWD##*/}/$0"
+    IN_CHROOT=yes arch-chroot /mnt /bin/bash -c "cd /${PWD##*/} ; ./${0##*/}"
 else
 ## }}}
 ## In-chroot {{{
