@@ -16,7 +16,7 @@ V_use_tmux="yes"
 #
 V_M_disk="disk/gpt-lvm"
 V_M_install="install/pacstrap"
-V_M_system="general/config network/auto-eth boot/grub"
+V_M_system="general/config network/auto-eth boot/grub user/initialise-user"
 V_M_configs="config/adminfiles config/grubfiles"
 ## }}}
 ## Library {{{
