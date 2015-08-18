@@ -36,7 +36,7 @@ if ! [[ $IN_CHROOT ]]; then
 
     # run some modules
     _exec_module $V_M_disk
-    _exec_module $V_M_base
+    _exec_module $V_M_install
 
     _log "finished pre-chroot stuff, chrooting in"
     cp -R "$PWD" "/mnt"
@@ -49,9 +49,7 @@ else
     _log "Making temporary directory"
     mkdir "$V_chroot_tmp_dir"
 
-    _exec_module $V_M_system_config
-    _exec_module $V_M_network
-    _exec_module $V_M_boot
+    _exec_module $V_M_system
     _exec_module $V_M_configs
 fi
 ## }}}

@@ -1,48 +1,39 @@
 # vim: set ft=sh :
 #
-# Variables for the setup scripts to use.
+# Variables which all the install script & modules have access to.
 #
 # Tailor these to match your system.
 #
 
-## Files {{{
-V_f_pre_chroot="pre-chroot.sh"
-V_f_in_chroot="in-chroot.sh"
+## Install {{{
+V_use_tmux="yes"
 ## }}}
 ## Modules {{{
 # * Modules are stored in the `modules` directory and must be
 #   shell-friendly/escaped (no spaces etc.)
 # * You may separate modules by lines or spaces.
 # * Empty lines are skipped, so you could e.g. separate out different sections.
-# * Modules must be ordered manually by priority. This should be labelled in
-#   each module file.
 #
 V_M_disk="disk/gpt-lvm"
-V_M_base="base/pacstrap"
-V_M_system_config="general/config"
-V_M_network="network/auto-eth"
-V_M_boot="boot/grub"
+V_M_install="install/pacstrap"
+V_M_system="general/config network/auto-eth boot/grub"
 V_M_configs="config/adminfiles config/grubfiles"
-
-V_modules="
-grubfiles
-adminfiles
-net-auto-eth
-"
 ## }}}
 ## Library {{{
 V_log_file="install-log.txt"
 V_chroot_tmp_dir="/tmp/arch-mod-install"
 ## }}}
-## Pre-chroot {{{
-V_use_tmux="yes"
-## }}}
-## Basic {{{
-V_user="raehik"
+## System configuration {{{
+V_root_passwd="hackme"
 V_hostname="al-computer"
+V_timezone="Europe/London"
 V_locale="en_GB.UTF-8"
 V_keymap="uk"
 V_pkgs="base grub openssh rxvt-unicode-terminfo sudo"
+## }}}
+## User {{{
+V_user="raehik"
+V_user_passwd="hackme"
 ## }}}
 ## Disk {{{
 V_disk_dev="/dev/sda"
@@ -52,13 +43,6 @@ V_var_size="15G"
 V_home_size="50G"
 V_vg_name="main"
 ## }}}
-## Network {{{
-V_eth_or_wpa="eth"
-## }}}
-## Time {{{
-V_timezone="Europe/London"
-## }}}
 ## Dotfiles {{{
 V_github_user="$V_user"
-V_dotfile_list="dotfiles adminfiles grubfiles"
 ## }}}
