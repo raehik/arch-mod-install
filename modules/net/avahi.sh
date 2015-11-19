@@ -7,6 +7,6 @@
 _log "Installing and enabling Avahi"
 _pkg_install avahi nss-mdns
 sed -e 's/\(^hosts: files dns myhostname\)/#\1/' \
-    -e '10ihosts: files mdns_minimal [NOTFOUND=return] dns myhostname' \\
+    -e '10ihosts: files mdns_minimal [NOTFOUND=return] dns myhostname' \
     -i /etc/nsswitch.conf
 systemctl enable avahi-daemon
