@@ -35,10 +35,6 @@ V_locale="en_GB.UTF-8"
 V_keymap="uk"
 V_pkgs="base vim"
 ## }}}
-## User {{{
-V_user="raehik"
-V_user_password="hackme"
-## }}}
 ## Disk {{{
 V_disk_dev="/dev/sda"
 V_boot_size="100M"
@@ -47,6 +43,11 @@ V_var_size="15G"
 V_home_size="50G"
 V_vg_name="main"
 ## }}}
-## Dotfiles {{{
+## User {{{
+V_user="raehik"
+V_user_password="hackme"
+## }}}
+## Other modules {{{
 V_github_user="$V_user"
+V_wol_interface="eth0"
 ## }}}
