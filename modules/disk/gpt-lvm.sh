@@ -3,6 +3,8 @@
 # Module:   disk/gpt-lvm
 # Desc.:    Initialise a disk device with GPT LVM.
 #
+# NOTE: see sys/config for actions taken if an LVM module is chosen
+#
 
 ## Disk initialising {{{
 _log "Prepping disk"
