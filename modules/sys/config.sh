@@ -20,8 +20,11 @@ sed -i \
     /etc/locale.gen
 locale-gen
 
+# note: we can't use localectl for setting locale here, so says the Arch Wiki
+# (and my experience)
 _log "Setting preferred locale & keymap"
-localectl set-locale "LANG=$V_locale"
+#localectl set-locale "LANG=$V_locale"
+echo "LANG=$V_locale" > /etc/locale.conf
 localectl set-keymap "$V_keymap"
 
 ## LVM-related options {{{
