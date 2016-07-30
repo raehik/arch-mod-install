@@ -32,10 +32,10 @@ lvcreate --yes -L $V_var_size "$V_vg_name" --name var
 lvcreate --yes -L $V_home_size "$V_vg_name" --name home
 
 _log "Creating filesystems"
-mkfs.ext4 "$boot_part"
-mkfs.ext4 "/dev/mapper/$V_vg_name-root"
-mkfs.ext4 "/dev/mapper/$V_vg_name-var"
-mkfs.ext4 "/dev/mapper/$V_vg_name-home"
+mkfs.ext4 -F "$boot_part"
+mkfs.ext4 -F "/dev/mapper/$V_vg_name-root"
+mkfs.ext4 -F "/dev/mapper/$V_vg_name-var"
+mkfs.ext4 -F "/dev/mapper/$V_vg_name-home"
 
 _log "Mounting partitions"
 mount "/dev/mapper/$V_vg_name-root" /mnt
