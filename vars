@@ -50,4 +50,5 @@ V_user_password="hackme"
 ## Other modules {{{
 V_github_user="$V_user"
 V_wol_interface="eth0"
+V_wlan_interface="wlan0"
 ## }}}
