@@ -50,7 +50,6 @@ else
     mkdir "$V_chroot_tmp_dir"
 
     _exec_module $V_M_system
-    _exec_module $V_M_configs
 
     _log "Chroot operations finished, exiting chroot"
     exit 0

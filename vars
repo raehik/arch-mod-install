@@ -1,4 +1,4 @@
-# vim: set ft=sh :
+# vim: ft=sh
 #
 # Variables which all the install script & modules have access to.
 #
@@ -16,12 +16,7 @@ V_use_tmux="yes"
 #
 V_M_disk="disk/gpt-lvm"
 V_M_install="install/pacstrap"
-V_M_system="
-sys/config
-net/auto-eth net/sshd net/avahi net/ntpd
-boot/grub
-user/init-user sys/sudo"
-V_M_configs="config/adminfiles config/grubfiles"
+V_M_system="sys/config net/auto-eth net/avahi boot/grub"
 ## }}}
 ## Library {{{
 V_log_file="install-log.txt"
@@ -29,11 +24,7 @@ V_chroot_tmp_dir="/tmp/arch-mod-install"
 ## }}}
 ## System configuration {{{
 V_root_password="hackme"
-V_hostname="al-computer"
-V_timezone="Europe/London"
-V_locale="en_GB.UTF-8"
-V_keymap="uk"
-V_pkgs="base vim"
+V_pkgs="base ansible"
 ## }}}
 ## Disk {{{
 V_disk_dev="/dev/sda"
@@ -43,12 +34,7 @@ V_var_size="15G"
 V_home_size="50G"
 V_vg_name="main"
 ## }}}
-## User {{{
-V_user="raehik"
-V_user_password="hackme"
-## }}}
 ## Other modules {{{
-V_github_user="$V_user"
 V_wol_interface="eth0"
 V_wlan_interface="wlan0"
 ## }}}
